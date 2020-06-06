@@ -5,6 +5,7 @@ using namespace std;
         if(s.length() == 0){
             return -1;
         }
+        queue<int> q;
         int a[26] = {0};
         int latest = s.length()-1;
         for(int i = s.length()-1;  i >= 0; i--){
@@ -12,6 +13,7 @@ using namespace std;
             a[index]++;
             if(a[index] == 1){
                 latest = i;
+                q.pu
             }
         }
         for(int i = 0; i < 26; i++){
