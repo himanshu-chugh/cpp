@@ -1,62 +1,39 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#define ll long long int
 using namespace std;
-int getmax(queue<int> &q , int*a , int &endpointer){
 
-    if(q.size() == 0){
-        int ans = a[endpointer];
-        endpointer--;
-        q.push(a[endpointer+1]/2);
-        return ans;
+int main(){
+    queue<ll> q;
+    ll n , m;
+    cin >> n >> m;
+    ll a[n];
+    for(ll i = 0; i < n; i++){
+        cin >> a[i];
     }
-    else{
-        if(endpointer == -1){
-            int ans = q.front();
-            q.push(ans/2);
-            q.pop();
-            return q.front();
+    sort(a , a+n);
+    n--;
+    ll count = 0;
+    for(ll i = 0; i < m; i++){
+        ll nu ;
+        cin >> nu;
+        ll max;
+        for(count; count < nu; count++){
+            if( n >= 0 and (q.empty() or q.front() <= a[n])){
+                max = a[n];
+                n--;
+            }
+            else{
+                max = q.front();
+                q.pop();
+            }
+            // else{}
+            if(max/2 > 0){
+                q.push(max/2);
+            }
+            // cout << "MAX "  << max << endl;
+            // cout << "q size " << q.size() << "  and now array " ;for(int j = 0; j <= n; j++) cout << a[j] << " " ;
+            // cout << endl; 
         }
-        else if(q.front() >= a[endpointer]){
-            int ans = q.front();
-            q.pop();
-            q.push(ans/2);
-            return ans;
-        }
-        else{
-            int ans = a[endpointer];
-            endpointer--;
-            q.push(ans/2);
-            return ans;
-        }
+        cout << max << endl;
     }
-}
-int main() {
-	// your code goes here
-	queue<int> q;
-	q.push(0);
-	int n ,m;
-	cin >> n >> m;
-	int a[n];
-	for(int i = 0; i < n; i++){
-	    cin >> a[i];
-	}
-	sort(a , a+n);
-	int endpointer = n-1;
-	int count = 0;
-	for(int i = 0; i < m; i++){
-	    int input;
-	    cin  >> input;
-	    int ans = a[endpointer];
-        
-	    while(count != input){
-	        count++;
-	        ans = getmax(q , a, endpointer);
-	    }
-	    cout << ans << endl;
-        for(int j= 0; j<= endpointer; j++){
-            cout << a[j] << " ";
-        }
-        cout << endl;
-	}
-	
-	return 0;
 }
